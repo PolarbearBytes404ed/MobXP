@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "mobxp",
+	"version": "${version}",
+	"name": "MobXP",
+	"description": "Adds the ability to set custom XP amounts for every mob in the game",
+	"authors": [
+		"PolarbearBytes"
+	],
+	"contact": {
+		"homepage": "https://github.com/PolarbearBytes/MobXP",
+		"sources": "https://github.com/PolarbearBytes/MobXP"
+	},
+	"license": "MIT",
+	"icon": "assets/mobxp/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"games.polarbearbytes.mobxp.MobXP"
+		],
+		"client": [
+			"games.polarbearbytes.mobxp.MobXPClient"
+		]
+	},
+	"mixins": [
+		"mobxp.mixins.json",
+		{
+			"config": "mobxp.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~26.1-",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

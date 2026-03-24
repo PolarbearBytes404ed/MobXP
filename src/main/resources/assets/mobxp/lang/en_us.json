@@ -1,0 +1,7 @@
+{
+  "key.category.mobxp.keys": "Mob XP",
+  "key.mobxp.openxpscreen": "Open Mob XP Screen",
+  "mobxp.commands.mobxp.details": "%1$s: \nprimary xp: %2$s, \nsecondary xp: %3$s, \nbaby xp: %4$s, \nenable: %5$s, \nrandom xp: %6$s, \nuse primary xp for baby: %7$s",
+  "mobxp.commands.mobxp.xpupdate": "%1$s \n%2$s XP set to: %3$s",
+  "mobxp.commands.mobxp.flagupdate": "%1$s: \n%2$s Flag set to: %3$s"
+}
