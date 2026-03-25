@@ -6,6 +6,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import games.polarbearbytes.mobxp.config.MobXPStateManager;
 import games.polarbearbytes.mobxp.data.MobXPData;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.arguments.ResourceArgument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
@@ -40,7 +41,7 @@ public class MobXPCommands {
                         .requires(source -> {
                             ServerPlayer entity = source.getPlayer();
                             PermissionSet perms = source.permissions();
-                            return Commands.LEVEL_OWNERS.check(perms); //|| (entity != null && Permissions.check(entity, "mobxp.manageXP"));
+                            return Commands.LEVEL_OWNERS.check(perms) || (entity != null && Permissions.check(entity, "mobxp.manageXP"));
                         })
                         .then(
                                 Commands.argument("entity", ResourceArgument.resource(commandBuildContext, Registries.ENTITY_TYPE))

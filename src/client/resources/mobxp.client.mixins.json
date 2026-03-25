@@ -3,7 +3,6 @@
   "package": "games.polarbearbytes.mobxp.mixin.client",
   "compatibilityLevel": "JAVA_25",
   "client": [
-    "ExampleClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

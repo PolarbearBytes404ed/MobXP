@@ -2,6 +2,7 @@ package games.polarbearbytes.mobxp;
 
 import games.polarbearbytes.mobxp.commands.MobXPCommands;
 import games.polarbearbytes.mobxp.networking.MobXPServerNetworking;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.server.MinecraftServer;
@@ -22,6 +23,6 @@ public class MobXP implements ModInitializer {
 	public static boolean hasManageXPPermission(ServerPlayer player, MinecraftServer server) {
 		boolean singlePlayerOP = server.isSingleplayer() && server.getPlayerList().isOp(player.nameAndId());
 		boolean serverPlayerOP = !server.isSingleplayer() && server.getPlayerList().isOp(player.nameAndId());
-		return singlePlayerOP || serverPlayerOP;//Permissions.check(player, MobXP.MOD_ID+".manageXP");
+		return singlePlayerOP || serverPlayerOP || Permissions.check(player, MobXP.MOD_ID+".manageXP");
 	}
 }

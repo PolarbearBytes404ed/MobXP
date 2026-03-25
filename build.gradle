@@ -43,7 +43,7 @@ dependencies {
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 	implementation 'org.apache.commons:commons-text:1.15.0'
 	implementation include('org.apache.commons:commons-text:1.15.0')
-	//include(implementation("me.lucko:fabric-permissions-api:${project.fabric_permissions_version}"))
+	include(implementation("me.lucko:fabric-permissions-api:${project.fabric_permissions_version}"))
 	
 }
 
