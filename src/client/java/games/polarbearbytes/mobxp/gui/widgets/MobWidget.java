@@ -7,7 +7,10 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import org.jspecify.annotations.NonNull;
+
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Widget for displaying a mob in teh same fashion the player is displayed in the inventory screen, e.g. follows mouse etc.
@@ -29,7 +32,7 @@ public class MobWidget implements Renderable {
         this.width = width;
         this.height = height;
 
-        entity = (LivingEntity) entityType.create(Minecraft.getInstance().level, EntitySpawnReason.EVENT);
+        entity = (LivingEntity) entityType.create(Objects.requireNonNull(Minecraft.getInstance().level), EntitySpawnReason.EVENT);
         assert entity != null;
 
         entity.snapTo(0.0, 0.0, 0.0, 0.0f, 0.0f);
@@ -65,7 +68,7 @@ public class MobWidget implements Renderable {
      * @param deltaTicks ticks since last render
      */
     @Override
-    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         double offset = MODEL_OFFSET_FIX.getOrDefault(entity.getType(), 1F);
         double scale = MODEL_SCALE_FIX.getOrDefault(entity.getType(), 1F);
         render(scale, offset, context, mouseX, mouseY);

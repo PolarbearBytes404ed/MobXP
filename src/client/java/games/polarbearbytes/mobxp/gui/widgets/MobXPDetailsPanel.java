@@ -11,6 +11,7 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 /**
  * "Panel" widget for displaying the editor controls for mob xp details
@@ -97,11 +98,11 @@ public class MobXPDetailsPanel implements Renderable {
         int buttonWidth = (width - MARGIN * 3) / 2;
         int buttonY = height - FIELD_HEIGHT;
 
-        Button applyButton = Button.builder(Component.literal("Apply"), b -> applyChanges())
+        Button applyButton = Button.builder(Component.literal("Apply"), _ -> applyChanges())
                 .pos(startX, buttonY)
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();
-        Button saveButton = Button.builder(Component.literal("Save & Close"), b -> saveAndClose())
+        Button saveButton = Button.builder(Component.literal("Save & Close"), _ -> saveAndClose())
                 .pos(startX + buttonWidth + MARGIN, buttonY)
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();
@@ -171,7 +172,7 @@ public class MobXPDetailsPanel implements Renderable {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         if(!visible) return;
         context.fill(x,y, x+width, y+height, 0x99000000);
         context.fill(x,y, x+width, y+24, 0xFF0a0a0a);

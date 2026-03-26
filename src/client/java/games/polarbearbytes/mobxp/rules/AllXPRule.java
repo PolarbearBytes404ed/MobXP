@@ -11,8 +11,8 @@ public class AllXPRule extends GeneralXPRule {
     @Override
     public void onSelect(EditorContext ctx, MobXPData data) {
         super.onSelect(ctx, data);
-        ctx.secondaryXP.setValue(valueOrDefault(data.secondaryXP()));
-        ctx.babyXP.setValue(valueOrDefault(data.babyXP()));
+        ctx.secondaryXP().setValue(valueOrDefault(data.secondaryXP()));
+        ctx.babyXP().setValue(valueOrDefault(data.babyXP()));
         ctx.showSecondary(true);
         ctx.showBaby(true);
     }
@@ -27,12 +27,12 @@ public class AllXPRule extends GeneralXPRule {
     public MobXPData buildData(EditorContext ctx, String id) {
         return new MobXPData(
                 id,
-                Utils.tryParse(ctx.primaryXP.getValue(), -1),
-                Utils.tryParse(ctx.secondaryXP.getValue(), -1),
-                Utils.tryParse(ctx.babyXP.getValue(), -1),
-                ctx.enabledCheckbox.selected(),
-                ctx.randomCheckbox.selected(),
-                ctx.usePrimaryXPForBaby.selected()
+                Utils.tryParse(ctx.primaryXP().getValue(), -1),
+                Utils.tryParse(ctx.secondaryXP().getValue(), -1),
+                Utils.tryParse(ctx.babyXP().getValue(), -1),
+                ctx.enabledCheckbox().selected(),
+                ctx.randomCheckbox().selected(),
+                ctx.usePrimaryXPForBaby().selected()
         );
     }
 }
