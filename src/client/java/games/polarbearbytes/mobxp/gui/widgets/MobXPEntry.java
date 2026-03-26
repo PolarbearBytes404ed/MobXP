@@ -6,11 +6,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.components.ObjectSelectionList.Entry;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.EntityType;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -35,15 +33,13 @@ public class MobXPEntry extends Entry<MobXPEntry> {
     @Override
     public void setHeight(int height){
         super.setHeight(height);
-        Registry<EntityType<?>> entityRegistry = Minecraft.getInstance().player.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
-        this.mobWidget = new MobWidget(entityRegistry.getValue(Identifier.parse(data.id())), getContentX(), getContentY(), getContentHeight(), getContentHeight());
+        this.mobWidget = new MobWidget(BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse(data.id())), getContentX(), getContentY(), getContentHeight(), getContentHeight());
     }
 
     @Override
     public void setWidth(int width){
         super.setWidth(width);
-        Registry<EntityType<?>> entityRegistry = Minecraft.getInstance().player.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
-        this.mobWidget = new MobWidget(entityRegistry.getValue(Identifier.parse(data.id())), getContentX(), getContentY(), getContentHeight(), getContentHeight());
+        this.mobWidget = new MobWidget(BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse(data.id())), getContentX(), getContentY(), getContentHeight(), getContentHeight());
     }
 
     /**
@@ -67,7 +63,7 @@ public class MobXPEntry extends Entry<MobXPEntry> {
     }
 
     @Override
-    public void extractContent(GuiGraphicsExtractor context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+    public void extractContent(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
         Font font = Minecraft.getInstance().font;
 
         this.mobWidget.extractRenderState(context,mouseX,mouseY,deltaTicks);

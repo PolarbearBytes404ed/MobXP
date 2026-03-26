@@ -12,6 +12,7 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.network.chat.Component;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 
@@ -75,7 +76,7 @@ public class MobXPListScreen extends Screen {
         int buttonWidth = width - listWidth - MARGIN * 3;
         int buttonY = height - FIELD_HEIGHT - MARGIN;
 
-        Button cancelButton = Button.builder(Component.literal("Cancel"), b -> onClose())
+        Button cancelButton = Button.builder(Component.literal("Cancel"), _ -> onClose())
                 .pos(listWidth + MARGIN * 2, buttonY)
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();
@@ -102,7 +103,7 @@ public class MobXPListScreen extends Screen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         super.extractRenderState(context, mouseX, mouseY, deltaTicks);
     }
 

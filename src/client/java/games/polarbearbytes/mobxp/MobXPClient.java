@@ -8,6 +8,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -25,13 +26,10 @@ public class MobXPClient implements ClientModInitializer {
 		//On entering the world build the default mob list for the mob xp screen
 		ClientEntityEvents.ENTITY_LOAD.register((entity,world)->{
 			if( !entity.isAlwaysTicking() ) return;
-
-			Registry<EntityType<?>> entityRegistry = world.registryAccess().lookupOrThrow(Registries.ENTITY_TYPE);
-
-			entityRegistry.forEach(entityType->{
+			BuiltInRegistries.ENTITY_TYPE.forEach(entityType->{
 				try {
-					Identifier id = entityRegistry.getKey(entityType);
-					Mob mobEntity = (Mob) entityRegistry.getValue(id).create(world, EntitySpawnReason.EVENT);
+					Identifier id = BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
+					Mob mobEntity = (Mob) entityType.create(world, EntitySpawnReason.EVENT);
 					if(mobEntity == null) return;
 
 					MobXPData data = new MobXPData(id.toString(), -1, -1,-1, false, false, false);

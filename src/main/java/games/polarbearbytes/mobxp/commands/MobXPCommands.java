@@ -3,7 +3,6 @@ package games.polarbearbytes.mobxp.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import games.polarbearbytes.mobxp.config.MobXPStateManager;
 import games.polarbearbytes.mobxp.data.MobXPData;
 import me.lucko.fabric.api.permissions.v0.Permissions;
@@ -134,7 +133,7 @@ public class MobXPCommands {
         );
     }
 
-    private static int showDetails(CommandSourceStack source, Holder.Reference<EntityType<?>> entityType) throws CommandSyntaxException {
+    private static int showDetails(CommandSourceStack source, Holder.Reference<EntityType<?>> entityType) {
         MobXPData data = MobXPStateManager.get(source.getServer()).getMobData(entityType.getRegisteredName());
 
         String primaryXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.primaryXP());
@@ -145,7 +144,7 @@ public class MobXPCommands {
         return 1;
     }
 
-    private static int updateXP(CommandSourceStack source, Holder.Reference<EntityType<?>> entityType, XPtype xptype, int xp) throws CommandSyntaxException {
+    private static int updateXP(CommandSourceStack source, Holder.Reference<EntityType<?>> entityType, XPtype xptype, int xp) {
         MobXPData oData = MobXPStateManager.get(source.getServer()).getMobData(entityType.getRegisteredName());
 
         MobXPData data = switch(xptype){
@@ -159,7 +158,7 @@ public class MobXPCommands {
         return 1;
     }
 
-    private static int updateFlag(CommandSourceStack source, Holder.Reference<EntityType<?>> entityType, XPFlag xpflag, boolean enabled) throws CommandSyntaxException {
+    private static int updateFlag(CommandSourceStack source, Holder.Reference<EntityType<?>> entityType, XPFlag xpflag, boolean enabled) {
         MobXPData oData = MobXPStateManager.get(source.getServer()).getMobData(entityType.getRegisteredName());
 
         MobXPData data = switch(xpflag){

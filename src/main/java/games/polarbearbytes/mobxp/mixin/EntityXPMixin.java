@@ -51,7 +51,7 @@ public abstract class EntityXPMixin extends Entity {
         //Custom xp not enabled so no need to continue
         if(!data.enabled()) return;
 
-        Integer xp = null;
+        int xp = 0;
         EntityType<?> type = this.getType();
 
         if(type == EntityType.CHICKEN){
@@ -70,9 +70,12 @@ public abstract class EntityXPMixin extends Entity {
                 //Regular adult chicken
                 xp = data.primaryXP();
             }
-        } else if(type == EntityType.ZOMBIE && !((Zombie) (Object) this).isBaby()) {
+        } else if(type == EntityType.ZOMBIE){
+            Zombie zombie = (Zombie) (Object) this;
             //If it is a zombie but not a baby we let it drop through to the MobEntityMixin
-            return;
+            if(!zombie.isBaby()){
+                return;
+            }
         } else {
             //All other mobs
             LivingEntity entity = (LivingEntity) (Object) this;

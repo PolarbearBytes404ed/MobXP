@@ -16,12 +16,12 @@ public class GeneralXPRule implements XPRule {
      */
     @Override
     public void onSelect(EditorContext ctx, MobXPData data) {
-        ctx.primaryXP.setValue(valueOrDefault(data.primaryXP()));
+        ctx.primaryXP().setValue(valueOrDefault(data.primaryXP()));
         ctx.showSecondary(false);
         ctx.showBaby(false);
 
-        ((CheckboxWidgetAccessor) ctx.enabledCheckbox).mobxp$setChecked(data.enabled());
-        ((CheckboxWidgetAccessor) ctx.randomCheckbox).mobxp$setChecked(data.random());
+        ((CheckboxWidgetAccessor) ctx.enabledCheckbox()).mobxp$setChecked(data.enabled());
+        ((CheckboxWidgetAccessor) ctx.randomCheckbox()).mobxp$setChecked(data.random());
         ctx.showNormal();
         ctx.setLabels("","");
     }
@@ -36,12 +36,12 @@ public class GeneralXPRule implements XPRule {
     public MobXPData buildData(EditorContext ctx, String id) {
         return new MobXPData(
                 id,
-                Utils.tryParse(ctx.primaryXP.getValue(), -1),
+                Utils.tryParse(ctx.primaryXP().getValue(), -1),
                 -1,
                 -1,
-                ctx.enabledCheckbox.selected(),
-                ctx.randomCheckbox.selected(),
-                ctx.usePrimaryXPForBaby.selected()
+                ctx.enabledCheckbox().selected(),
+                ctx.randomCheckbox().selected(),
+                ctx.usePrimaryXPForBaby().selected()
         );
     }
 
