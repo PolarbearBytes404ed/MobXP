@@ -34,12 +34,11 @@ public class MobXPServerNetworking {
         ServerPlayer player = context.player();
 
         if(!hasManageXPPermission(player, server)) {
-            player.sendSystemMessage(Component.nullToEmpty(
-                    "You do not have permission to manage mob xp"
+            player.sendSystemMessage(Component.translatable(
+                    "mobxp.strings.nopermissions"
             ));
         } else {
             List<MobXPData> dataList = MobXPStateManager.get(server).getList();
-
             ServerPlayNetworking.send(player,new MobXPDataListPacket( dataList ));
         }
     }
@@ -49,8 +48,8 @@ public class MobXPServerNetworking {
         ServerPlayer player = context.player();
 
         if(!hasManageXPPermission(player, server)) {
-            player.sendSystemMessage(Component.nullToEmpty(
-                    "You do not have permission to manage mob xp"
+            player.sendSystemMessage(Component.translatable(
+                    "mobxp.strings.nopermissions"
             ));
         } else {
             MobXPData data = payload.data();

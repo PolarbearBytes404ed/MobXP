@@ -50,37 +50,37 @@ public class MobXPDetailsPanel implements Renderable {
         int placementX = x + MARGIN_LEFT;
         int placementY = y + 20;
 
-        Component xpLabelText = Component.nullToEmpty("XP: ");
+        Component xpLabelText = Component.translatable("config.mobxp.xp.label");
         int xpLabelWidth = font.width(xpLabelText);
 
         int fieldX = placementX + xpLabelWidth + MARGIN;
         int fieldWidth = (width - (MARGIN_LEFT + MARGIN_RIGHT) - (xpLabelWidth + MARGIN) - MARGIN) / 2;
 
-        StringWidget primaryXPLabel = new StringWidget(fieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.nullToEmpty(""), font);
-        StringWidget secondaryXPLabel = new StringWidget(fieldX + fieldWidth + MARGIN, placementY, fieldWidth, FIELD_HEIGHT, Component.nullToEmpty(""), font);
+        StringWidget primaryXPLabel = new StringWidget(fieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.translatable("config.mobxp.primaryxp.label"), font);
+        StringWidget secondaryXPLabel = new StringWidget(fieldX + fieldWidth + MARGIN, placementY, fieldWidth, FIELD_HEIGHT, Component.translatable("config.mobxp.secondaryxp.label"), font);
 
         placementY += LINE_HEIGHT;
 
         StringWidget xpLabel = new StringWidget(placementX, placementY, xpLabelWidth, FIELD_HEIGHT, xpLabelText, font);
 
-        EditBox primaryXPField = new EditBox(font, fieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.literal("Value"));
-        EditBox secondaryXPField = new EditBox(font, fieldX + fieldWidth + MARGIN, placementY, fieldWidth, FIELD_HEIGHT, Component.literal("Value"));
+        EditBox primaryXPField = new EditBox(font, fieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.translatable("config.mobxp.primaryxp.label"));
+        EditBox secondaryXPField = new EditBox(font, fieldX + fieldWidth + MARGIN, placementY, fieldWidth, FIELD_HEIGHT, Component.translatable("config.mobxp.secondaryxp.label"));
 
         placementY += LINE_HEIGHT;
 
-        Checkbox enabledCheckbox = Checkbox.builder(Component.literal("Enabled"), font)
+        Checkbox enabledCheckbox = Checkbox.builder(Component.translatable("config.mobxp.enabled.label"), font)
                 .pos(placementX, placementY)
                 .build();
 
         placementY += LINE_HEIGHT;
 
-        Checkbox randomCheckbox = Checkbox.builder(Component.literal("Random"), font)
+        Checkbox randomCheckbox = Checkbox.builder(Component.translatable("config.mobxp.use_randomxp.label"), font)
                 .pos(placementX, placementY)
                 .build();
 
         placementY += LINE_HEIGHT;
 
-        Component babyLabelText = Component.nullToEmpty("When Baby: ");
+        Component babyLabelText = Component.translatable("config.mobxp.babyxp.label");
         int babyLabelWidth = font.width(babyLabelText);
         fieldX = placementX + babyLabelWidth + MARGIN;
 
@@ -89,7 +89,7 @@ public class MobXPDetailsPanel implements Renderable {
 
         placementY += LINE_HEIGHT;
 
-        Checkbox usePrimaryXPForBaby = Checkbox.builder(Component.literal("Same As Adult"), font)
+        Checkbox usePrimaryXPForBaby = Checkbox.builder(Component.translatable("config.mobxp.use_adultxp.label"), font)
                 .pos(fieldX, placementY)
                 .build();
 
@@ -98,11 +98,11 @@ public class MobXPDetailsPanel implements Renderable {
         int buttonWidth = (width - MARGIN * 3) / 2;
         int buttonY = height - FIELD_HEIGHT;
 
-        Button applyButton = Button.builder(Component.literal("Apply"), _ -> applyChanges())
+        Button applyButton = Button.builder(Component.translatable("config.mobxp.apply_button.label"), _ -> applyChanges())
                 .pos(startX, buttonY)
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();
-        Button saveButton = Button.builder(Component.literal("Save & Close"), _ -> saveAndClose())
+        Button saveButton = Button.builder(Component.translatable("config.mobxp.save_button.label"), _ -> saveAndClose())
                 .pos(startX + buttonWidth + MARGIN, buttonY)
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();

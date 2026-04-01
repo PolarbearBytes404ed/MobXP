@@ -31,7 +31,7 @@ public class MobXPListScreen extends Screen {
     private EditBox searchField;
 
     public MobXPListScreen() {
-        super(Component.literal("Mob XP Editor"));
+        super(Component.translatable("config.mobxp.title"));
     }
 
     /**
@@ -54,7 +54,7 @@ public class MobXPListScreen extends Screen {
         }
         int listWidth = (int) (LIST_WIDTH_PERCENTAGE * width) - MARGIN * 2;
 
-        Component labelText = Component.literal("Search:");
+        Component labelText = Component.translatable("config.mobxp.search.label");
         int labelWidth = font.width(labelText) + MARGIN;
         int fieldWidth = listWidth - labelWidth;
 
@@ -76,7 +76,7 @@ public class MobXPListScreen extends Screen {
         int buttonWidth = width - listWidth - MARGIN * 3;
         int buttonY = height - FIELD_HEIGHT - MARGIN;
 
-        Button cancelButton = Button.builder(Component.literal("Cancel"), _ -> onClose())
+        Button cancelButton = Button.builder(Component.translatable("config.mobxp.cancel_button.title"), _ -> onClose())
                 .pos(listWidth + MARGIN * 2, buttonY)
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();

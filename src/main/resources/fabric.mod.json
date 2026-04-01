@@ -8,8 +8,8 @@
 		"PolarbearBytes"
 	],
 	"contact": {
-		"homepage": "https://github.com/PolarbearBytes/MobXP",
-		"sources": "https://github.com/PolarbearBytes/MobXP"
+		"homepage": "https://github.com/PolarbearBytes404ed/MobXP",
+		"sources": "https://github.com/PolarbearBytes404ed/MobXP"
 	},
 	"license": "MIT",
 	"icon": "assets/mobxp/icon.png",
@@ -34,5 +34,8 @@
 		"minecraft": "~26.1-",
 		"java": ">=25",
 		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
 	}
 }

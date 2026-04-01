@@ -77,9 +77,9 @@ public class MobXPEntry extends Entry<MobXPEntry> {
         String xp = String.valueOf(data.primaryXP());
         xp = xp.equals("-1") ? "default" : xp;
 
-        context.text(font, "XP: " + xp, textX, textY+labelHeight, 0xFFFFFFFF, false);
-        context.text(font, "Enabled: " + data.enabled(), textX, textY+labelHeight*2, 0xFFFFFFFF, false);
-        context.text(font, "Random XP: " + data.random(), textX, textY+labelHeight*3, 0xFFFFFFFF, false);
+        context.text(font, Component.translatable("config.mobxp.xp",xp).getString(), textX, textY+labelHeight, 0xFFFFFFFF, false);
+        context.text(font, Component.translatable("config.mobxp.enabled", data.enabled()).getString(), textX, textY+labelHeight*2, 0xFFFFFFFF, false);
+        context.text(font, Component.translatable("config.mobxp.use_randomxp", data.random()).getString(), textX, textY+labelHeight*3, 0xFFFFFFFF, false);
     }
 
     @Override
