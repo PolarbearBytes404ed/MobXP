@@ -30,9 +30,12 @@ public class BabyVariantXPRule extends GeneralXPRule {
                 Utils.tryParse(ctx.primaryXP().getValue(), -1),
                 -1,
                 Utils.tryParse(ctx.babyXP().getValue(), -1),
+                -1,
+                -1,
                 ctx.enabledCheckbox().selected(),
                 ctx.randomCheckbox().selected(),
-                ctx.usePrimaryXPForBaby().selected()
+                ctx.usePrimaryXPForBaby().selected(),
+                false
         );
     }
 }

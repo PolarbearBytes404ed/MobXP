@@ -28,9 +28,12 @@ public class SecondaryXPRule extends GeneralXPRule {
                 Utils.tryParse(ctx.primaryXP().getValue(), -1),
                 Utils.tryParse(ctx.secondaryXP().getValue(), -1),
                 -1,
+                -1,
+                -1,
                 ctx.enabledCheckbox().selected(),
                 ctx.randomCheckbox().selected(),
-                ctx.usePrimaryXPForBaby().selected()
+                ctx.usePrimaryXPForBaby().selected(),
+                false
         );
     }
 }

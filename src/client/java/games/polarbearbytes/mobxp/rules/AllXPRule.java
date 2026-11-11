@@ -30,9 +30,12 @@ public class AllXPRule extends GeneralXPRule {
                 Utils.tryParse(ctx.primaryXP().getValue(), -1),
                 Utils.tryParse(ctx.secondaryXP().getValue(), -1),
                 Utils.tryParse(ctx.babyXP().getValue(), -1),
+                Utils.tryParse(ctx.mediumCubeXP().getValue(), -1),
+                Utils.tryParse(ctx.smallCubeXP().getValue(), -1),
                 ctx.enabledCheckbox().selected(),
                 ctx.randomCheckbox().selected(),
-                ctx.usePrimaryXPForBaby().selected()
+                ctx.usePrimaryXPForBaby().selected(),
+                ctx.usePrimaryXPForAllCubes().selected()
         );
     }
 }

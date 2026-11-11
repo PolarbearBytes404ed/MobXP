@@ -11,7 +11,12 @@ import net.minecraft.network.chat.Component;
  */
 public record EditorContext(EditBox primaryXP, StringWidget primaryLabel, EditBox secondaryXP,
                             StringWidget secondaryLabel, Checkbox enabledCheckbox, Checkbox randomCheckbox,
-                            StringWidget xpLabel, StringWidget babyLabel, EditBox babyXP, Checkbox usePrimaryXPForBaby,
+                            StringWidget xpLabel,
+                            StringWidget babyLabel, EditBox babyXP,
+                            StringWidget mediumCubeLabel, EditBox mediumCubeXP,
+                            StringWidget smallCubeLabel, EditBox smallCubeXP,
+                            Checkbox usePrimaryXPForBaby,
+                            Checkbox usePrimaryXPForAllCubes,
                             Button applyButton, Button saveCloseButton) {
 
     /**
@@ -27,7 +32,12 @@ public record EditorContext(EditBox primaryXP, StringWidget primaryLabel, EditBo
         randomCheckbox.visible = false;
         babyLabel.visible = false;
         babyXP.visible = false;
+        mediumCubeLabel.visible = false;
+        mediumCubeXP.visible = false;
+        smallCubeLabel.visible = false;
+        smallCubeXP.visible = false;
         usePrimaryXPForBaby.visible = false;
+        usePrimaryXPForAllCubes.visible = false;
         applyButton.visible = false;
         saveCloseButton.visible = false;
     }
@@ -54,12 +64,23 @@ public record EditorContext(EditBox primaryXP, StringWidget primaryLabel, EditBo
     }
 
     /**
-     * Show the baby detail controls, labels for mobs with baby xp (like baby zombie, animals etc)
+     * Show the baby detail controls, labels for mobs with baby xp (like baby zombie, animals etc.)
      */
     public void showBaby(boolean show) {
         babyLabel.visible = show;
         babyXP.visible = show;
         usePrimaryXPForBaby.visible = show;
+    }
+
+    /**
+     * Show the cube detail controls, controls for cube type mobs xp (like slimes, magma, sulfur, etc.)
+     */
+    public void showCubes(boolean show) {
+        mediumCubeLabel.visible = show;
+        mediumCubeXP.visible = show;
+        smallCubeLabel.visible = show;
+        smallCubeXP.visible = show;
+        usePrimaryXPForAllCubes.visible = show;
     }
 
     public void setLabels(String primaryLabel, String secondaryLabel) {

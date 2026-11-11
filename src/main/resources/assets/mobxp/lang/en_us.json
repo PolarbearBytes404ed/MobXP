@@ -1,7 +1,7 @@
 {
   "key.category.mobxp.keys": "Mob XP",
   "key.mobxp.openxpscreen": "Open Mob XP Screen",
-  "mobxp.commands.mobxp.details": "%1$s: \nprimary xp: %2$s, \nsecondary xp: %3$s, \nbaby xp: %4$s, \nenable: %5$s, \nrandom xp: %6$s, \nuse primary xp for baby: %7$s",
+  "mobxp.commands.mobxp.details": "%1$s: \nprimary xp: %2$s, \nsecondary xp: %3$s, \nbaby xp: %4$s, \nlarge cube xp: %5$s, \nmedium cube xp: %6$s, \nsmall cube xp: %7$s, \nenable: %8$s, \nrandom xp: %9$s, \nuse primary xp for baby: %10$s, \nuse primary xp for all cubes: %11$s",
   "mobxp.commands.mobxp.xpupdate": "%1$s \n%2$s XP set to: %3$s",
   "mobxp.commands.mobxp.flagupdate": "%1$s: \n%2$s Flag set to: %3$s",
 
@@ -18,8 +18,12 @@
   "config.mobxp.enabled.label": "Enabled",
   "config.mobxp.use_randomxp": "Randomize XP: %s",
   "config.mobxp.use_randomxp.label": "Randomize XP",
-  "config.mobxp.babyxp.label":"XP From Baby Variant: ",
-  "config.mobxp.use_adultxp.label":"Baby Variant XP Same as Adult XP",
+  "config.mobxp.babyxp.label":"XP For Baby: ",
+  "config.mobxp.largecubexp.label":"XP For Large Cube: ",
+  "config.mobxp.mediumcubexp.label":"XP For Medium Cube: ",
+  "config.mobxp.smallcubexp.label":"XP For Small Cube: ",
+  "config.mobxp.use_adultxp.label":"Babies Have The Same XP as Adults",
+  "config.mobxp.use_adultxp_all_cubes.label":"All Cubes Have The Large Cube XP",
   "config.mobxp.apply_button.label": "Apply",
   "config.mobxp.save_button.label": "Save & Close",
   "config.mobxp.cancel_button.label": "Cancel"

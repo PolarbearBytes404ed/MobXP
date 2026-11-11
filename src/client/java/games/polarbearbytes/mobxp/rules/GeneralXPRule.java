@@ -19,6 +19,7 @@ public class GeneralXPRule implements XPRule {
         ctx.primaryXP().setValue(valueOrDefault(data.primaryXP()));
         ctx.showSecondary(false);
         ctx.showBaby(false);
+        ctx.showCubes(false);
 
         ((CheckboxWidgetAccessor) ctx.enabledCheckbox()).mobxp$setChecked(data.enabled());
         ((CheckboxWidgetAccessor) ctx.randomCheckbox()).mobxp$setChecked(data.random());
@@ -39,9 +40,12 @@ public class GeneralXPRule implements XPRule {
                 Utils.tryParse(ctx.primaryXP().getValue(), -1),
                 -1,
                 -1,
+                -1,
+                -1,
                 ctx.enabledCheckbox().selected(),
                 ctx.randomCheckbox().selected(),
-                ctx.usePrimaryXPForBaby().selected()
+                ctx.usePrimaryXPForBaby().selected(),
+                false
         );
     }
 

@@ -71,6 +71,9 @@ java {
 
 jar {
 	inputs.property "archivesName", project.base.archivesName
+	inputs.property "minecraft_version", project.minecraft_version
+
+	archiveFileName = "${inputs.properties.archivesName}-${project.version}-${project.minecraft_version}.jar"
 
 	from("LICENSE") {
 		rename { "${it}_${inputs.properties.archivesName}"}

@@ -25,13 +25,15 @@ public class MobXPCommands {
     private enum XPtype {
         PRIMARY,
         SECONDARY,
-        BABY
+        BABY,
+        CUBE
     }
 
     private enum XPFlag {
         ENABLED,
         RANDOM,
-        BABYUSESPRIMARY
+        BABYUSESPRIMARY,
+        CUBESUSESPRIMARY
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, Commands.CommandSelection commandSelection) {
@@ -139,8 +141,11 @@ public class MobXPCommands {
         String primaryXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.primaryXP());
         String secondaryXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.secondaryXP());
         String babyXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.babyXP());
+        String largeCubeXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.primaryXP());
+        String mediumCubeXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.mediumCubeXP());
+        String smallCubeXP = data.primaryXP() == -1 ? "default" : String.valueOf(data.smallCubeXP());
 
-        source.sendSuccess(() -> Component.translatable("mobxp.commands.mobxp.details", data.getName(), primaryXP, secondaryXP, babyXP, data.enabled(), data.random(), data.usePrimaryXPForBaby()), false);
+        source.sendSuccess(() -> Component.translatable("mobxp.commands.mobxp.details", data.getName(), primaryXP, secondaryXP, babyXP, largeCubeXP, mediumCubeXP, smallCubeXP, data.enabled(), data.random(), data.usePrimaryXPForBaby(), data.usePrimaryXPForAllCubes()), false);
         return 1;
     }
 
@@ -148,9 +153,10 @@ public class MobXPCommands {
         MobXPData oData = MobXPStateManager.get(source.getServer()).getMobData(entityType.getRegisteredName());
 
         MobXPData data = switch(xptype){
-            case XPtype.PRIMARY -> new MobXPData(oData.id(),xp,oData.secondaryXP(),oData.babyXP(),oData.enabled(),oData.random(),oData.usePrimaryXPForBaby());
-            case XPtype.SECONDARY -> new MobXPData(oData.id(),oData.primaryXP(),xp,oData.babyXP(),oData.enabled(),oData.random(),oData.usePrimaryXPForBaby());
-            case XPtype.BABY -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),xp,oData.enabled(),oData.random(),oData.usePrimaryXPForBaby());
+            case XPtype.PRIMARY -> new MobXPData(oData.id(),xp,oData.secondaryXP(),oData.babyXP(),oData.mediumCubeXP(),oData.smallCubeXP(),oData.enabled(),oData.random(),oData.usePrimaryXPForBaby(),oData.usePrimaryXPForAllCubes());
+            case XPtype.SECONDARY -> new MobXPData(oData.id(),oData.primaryXP(),xp,oData.babyXP(),oData.mediumCubeXP(),oData.smallCubeXP(),oData.enabled(),oData.random(),oData.usePrimaryXPForBaby(),oData.usePrimaryXPForAllCubes());
+            case XPtype.BABY -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),xp,oData.mediumCubeXP(),oData.smallCubeXP(),oData.enabled(),oData.random(),oData.usePrimaryXPForBaby(),oData.usePrimaryXPForAllCubes());
+            case XPtype.CUBE -> new MobXPData(oData.id(),xp,oData.secondaryXP(),oData.babyXP(),xp,xp,oData.enabled(),oData.random(),oData.usePrimaryXPForBaby(),oData.usePrimaryXPForAllCubes());
         };
 
         MobXPStateManager.get(source.getServer()).updateState(data);
@@ -162,9 +168,10 @@ public class MobXPCommands {
         MobXPData oData = MobXPStateManager.get(source.getServer()).getMobData(entityType.getRegisteredName());
 
         MobXPData data = switch(xpflag){
-            case XPFlag.ENABLED -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),enabled,oData.random(),oData.usePrimaryXPForBaby());
-            case XPFlag.RANDOM -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),oData.enabled(),enabled,oData.usePrimaryXPForBaby());
-            case XPFlag.BABYUSESPRIMARY -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),oData.enabled(),oData.random(),enabled);
+            case XPFlag.ENABLED -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),oData.mediumCubeXP(),oData.smallCubeXP(),enabled,oData.random(),oData.usePrimaryXPForBaby(),oData.usePrimaryXPForAllCubes());
+            case XPFlag.RANDOM -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),oData.mediumCubeXP(),oData.smallCubeXP(),oData.enabled(),enabled,oData.usePrimaryXPForBaby(),oData.usePrimaryXPForAllCubes());
+            case XPFlag.BABYUSESPRIMARY -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),oData.mediumCubeXP(),oData.smallCubeXP(),oData.enabled(),oData.random(),enabled,oData.usePrimaryXPForAllCubes());
+            case XPFlag.CUBESUSESPRIMARY -> new MobXPData(oData.id(),oData.primaryXP(),oData.secondaryXP(),oData.babyXP(),oData.mediumCubeXP(),oData.smallCubeXP(),oData.enabled(),oData.random(), oData.usePrimaryXPForBaby(),enabled);
         };
 
         MobXPStateManager.get(source.getServer()).updateState(data);

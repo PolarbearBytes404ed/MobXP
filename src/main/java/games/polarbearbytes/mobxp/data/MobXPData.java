@@ -18,15 +18,18 @@ import org.apache.commons.text.WordUtils;
  * @param random if enabled the custom experience we be between 0 and the custom amount set
  * @param usePrimaryXPForBaby if enabled the primaryXP amount will be used instead of babyXP for baby variant of the mob
  */
-public record MobXPData(String id, int primaryXP, int secondaryXP, int babyXP, boolean enabled, boolean random, boolean usePrimaryXPForBaby) {
+public record MobXPData(String id, int primaryXP, int secondaryXP, int babyXP, int mediumCubeXP, int smallCubeXP,  boolean enabled, boolean random, boolean usePrimaryXPForBaby, boolean usePrimaryXPForAllCubes) {
     public static final Codec<MobXPData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.fieldOf("id").forGetter(MobXPData::id),
             Codec.INT.fieldOf("primaryXP").forGetter(MobXPData::primaryXP),
             Codec.INT.fieldOf("secondaryXP").forGetter(MobXPData::secondaryXP),
             Codec.INT.fieldOf("babyXP").forGetter(MobXPData::babyXP),
+            Codec.INT.fieldOf("mediumCubeXP").forGetter(MobXPData::mediumCubeXP),
+            Codec.INT.fieldOf("smallCubeXP").forGetter(MobXPData::smallCubeXP),
             Codec.BOOL.fieldOf("enabled").forGetter(MobXPData::enabled),
             Codec.BOOL.fieldOf("random").forGetter(MobXPData::random),
-            Codec.BOOL.fieldOf("usePrimaryXPForBaby").forGetter(MobXPData::usePrimaryXPForBaby)
+            Codec.BOOL.fieldOf("usePrimaryXPForBaby").forGetter(MobXPData::usePrimaryXPForBaby),
+            Codec.BOOL.fieldOf("usePrimaryXPForAllCubes").forGetter(MobXPData::usePrimaryXPForAllCubes)
         ).apply(instance, MobXPData::new));
 
     public static final StreamCodec<ByteBuf, MobXPData> PACKET_CODEC = StreamCodec.composite(
@@ -34,14 +37,17 @@ public record MobXPData(String id, int primaryXP, int secondaryXP, int babyXP, b
             ByteBufCodecs.INT, MobXPData::primaryXP,
             ByteBufCodecs.INT, MobXPData::secondaryXP,
             ByteBufCodecs.INT, MobXPData::babyXP,
+            ByteBufCodecs.INT, MobXPData::mediumCubeXP,
+            ByteBufCodecs.INT, MobXPData::smallCubeXP,
             ByteBufCodecs.BOOL, MobXPData::enabled,
             ByteBufCodecs.BOOL, MobXPData::random,
             ByteBufCodecs.BOOL, MobXPData::usePrimaryXPForBaby,
+            ByteBufCodecs.BOOL, MobXPData::usePrimaryXPForAllCubes,
             MobXPData::new
     );
 
     public static MobXPData EMPTY(String id){
-        return new MobXPData(id,-1,-1,-1,false,false,false);
+        return new MobXPData(id,-1,-1,-1, -1, -1, false,false,false, false);
     }
 
     /**

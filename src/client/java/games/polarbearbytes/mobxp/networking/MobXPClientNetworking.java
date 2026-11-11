@@ -40,7 +40,7 @@ public class MobXPClientNetworking {
                     }
                 } catch(Exception ignored) {}
             });
-            Screen currentScreen = context.client().screen;
+            Screen currentScreen = context.client().gui.screen();
             if(currentScreen instanceof MobXPListScreen) {
                 ((MobXPListScreen) currentScreen).updateList(MobXPClient.mobXPData);
             }

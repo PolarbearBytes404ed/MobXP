@@ -84,13 +84,33 @@ public class MobXPDetailsPanel implements Renderable {
         int babyLabelWidth = font.width(babyLabelText);
         fieldX = placementX + babyLabelWidth + MARGIN;
 
+        Component mediumCubeLabelText = Component.translatable("config.mobxp.mediumcubexp.label");
+        int mediumCubeLabelWidth = font.width(mediumCubeLabelText);
+        int mediumCubeFieldX = placementX + mediumCubeLabelWidth + MARGIN;
+
+        Component smallCubeLabelText = Component.translatable("config.mobxp.smallcubexp.label");
+        int smallCubeLabelWidth = font.width(smallCubeLabelText);
+        int smallCubeFieldX = placementX + smallCubeLabelWidth + MARGIN;
+
         StringWidget babyLabel = new StringWidget(placementX, placementY, babyLabelWidth, FIELD_HEIGHT, babyLabelText, font);
         EditBox babyXPField = new EditBox(font, fieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.literal("Value"));
 
         placementY += LINE_HEIGHT;
-
         Checkbox usePrimaryXPForBaby = Checkbox.builder(Component.translatable("config.mobxp.use_adultxp.label"), font)
-                .pos(fieldX, placementY)
+                .pos(placementX, placementY)
+                .build();
+
+        placementY -= LINE_HEIGHT;
+        StringWidget mediumCubeLabel = new StringWidget(placementX, placementY, mediumCubeLabelWidth, FIELD_HEIGHT, mediumCubeLabelText, font);
+        EditBox mediumCubeXPField = new EditBox(font, mediumCubeFieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.literal("Value"));
+
+        placementY += LINE_HEIGHT;
+        StringWidget smallCubeLabel = new StringWidget(placementX, placementY, smallCubeLabelWidth, FIELD_HEIGHT, smallCubeLabelText, font);
+        EditBox smallCubeXPField = new EditBox(font, smallCubeFieldX, placementY, fieldWidth, FIELD_HEIGHT, Component.literal("Value"));
+
+        placementY += LINE_HEIGHT;
+        Checkbox usePrimaryXPForAllCubes = Checkbox.builder(Component.translatable("config.mobxp.use_adultxp_all_cubes.label"), font)
+                .pos(placementX, placementY)
                 .build();
 
         int startX = x + MARGIN;
@@ -120,7 +140,12 @@ public class MobXPDetailsPanel implements Renderable {
 
         parent.add(babyLabel);
         parent.add(babyXPField);
+        parent.add(mediumCubeLabel);
+        parent.add(mediumCubeXPField);
+        parent.add(smallCubeLabel);
+        parent.add(smallCubeXPField);
         parent.add(usePrimaryXPForBaby);
+        parent.add(usePrimaryXPForAllCubes);
 
         parent.add(applyButton);
         parent.add(saveButton);
@@ -135,7 +160,12 @@ public class MobXPDetailsPanel implements Renderable {
                 xpLabel,
                 babyLabel,
                 babyXPField,
+                mediumCubeLabel,
+                mediumCubeXPField,
+                smallCubeLabel,
+                smallCubeXPField,
                 usePrimaryXPForBaby,
+                usePrimaryXPForAllCubes,
                 applyButton,
                 saveButton
         );

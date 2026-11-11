@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
+import org.lwjgl.sdl.SDLScancode;
 
 /**
  * Keybinding class
@@ -28,7 +28,7 @@ public class KeyInputHandler {
             if(toggleXPScreenKey.consumeClick()){
                 if(client.player == null) return;
                 MobXPListScreen screen = new MobXPListScreen();
-                Minecraft.getInstance().setScreen(screen);
+                Minecraft.getInstance().setScreenAndShow(screen);
                 ClientPlayNetworking.send(new MobXPDataRequestPacket());
             }
         });
@@ -40,8 +40,8 @@ public class KeyInputHandler {
     public static void register() {
         toggleXPScreenKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 KEY_TOGGLE_SCREEN,
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_KP_5,
+                InputConstants.Type.KEYBOARD,
+                SDLScancode.SDL_SCANCODE_KP_5,
                 KEY_CATEGORY_KEYS
         ));
 

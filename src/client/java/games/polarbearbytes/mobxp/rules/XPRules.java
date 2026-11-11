@@ -18,6 +18,8 @@ public final class XPRules {
     public static XPRule forEntity(String id) {
         return switch(id){
             case "minecraft:ender_dragon" -> new EnderDragonXPRule();
+            case "minecraft:slime", "minecraft:magma_cube" -> new AbstractCubeMobXPRule();
+            case "minecraft:zombie", "minecraft:zombie_villager" -> new BabyVariantXPRule();
             case "minecraft:chicken" -> new ChickenXPRule();
             default -> {
                 Level level = Minecraft.getInstance().level;
@@ -26,9 +28,10 @@ public final class XPRules {
                 EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse(id));
                 Entity entity = entityType.create(level, EntitySpawnReason.EVENT);
 
-                if(entity instanceof AgeableMob){
+                if(entity instanceof AgeableMob) {
                     yield new BabyVariantXPRule();
                 } else {
+                    //Everything else
                     yield DEFAULT;
                 }
             }
