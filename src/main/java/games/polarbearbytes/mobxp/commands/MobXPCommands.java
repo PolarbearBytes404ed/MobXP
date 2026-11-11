@@ -1,22 +1,19 @@
 package games.polarbearbytes.mobxp.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.BoolArgumentType;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import games.polarbearbytes.mobxp.config.MobXPStateManager;
 import games.polarbearbytes.mobxp.data.MobXPData;
-import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.commands.CommandBuildContext;
-import net.minecraft.commands.arguments.ResourceArgument;
-import net.minecraft.commands.synchronization.SuggestionProviders;
+import net.minecraft.commands.CommandPermissionLevels;
+import net.minecraft.commands.arguments.*;
+import net.minecraft.commands.suggestions.SuggestSummonableEntities;
 import net.minecraft.core.Holder;
-import net.minecraft.server.permissions.PermissionSet;
+import net.minecraft.server.permissions.*;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Commands for changing the mob xp details
@@ -39,14 +36,17 @@ public class MobXPCommands {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext commandBuildContext, Commands.CommandSelection commandSelection) {
         dispatcher.register(
                 Commands.literal("mobxp")
+                        .requires(Commands.hasPermission(CommandPermissionLevels.LEVEL_OWNERS))
+                        /*
                         .requires(source -> {
                             ServerPlayer entity = source.getPlayer();
-                            PermissionSet perms = source.permissions();
-                            return Commands.LEVEL_OWNERS.check(perms) || (entity != null && Permissions.check(entity, "mobxp.manageXP"));
-                        })
+                            if(entity == null) return false;
+                            return entity.permissions().hasPermission(new Permission.HasCommandLevel(LevelBasedPermissionSet.OWNER.level()));
+                                    //|| Permissions.check(entity, "mobxp.manageXP");
+                        })*/
                         .then(
-                                Commands.argument("entity", ResourceArgument.resource(commandBuildContext, Registries.ENTITY_TYPE))
-                                        .suggests(SuggestionProviders.cast(SuggestionProviders.SUMMONABLE_ENTITIES))
+                                Commands.argument("entity", ResourceArgument.resource(Registries.ENTITY_TYPE))
+                                        .suggests(SuggestSummonableEntities.suggestSummonableEntities())
                                         .executes(
                                                 context -> showDetails(
                                                         context.getSource(),
@@ -56,12 +56,12 @@ public class MobXPCommands {
                                         .then(
                                                 Commands.literal("primaryXP")
                                                         .then(
-                                                                Commands.argument("xp", IntegerArgumentType.integer())
+                                                                Commands.argument("xp", IntegerArgument.integer())
                                                                         .executes(context->updateXP(
                                                                                     context.getSource(),
                                                                                     ResourceArgument.getSummonableEntityType(context, "entity"),
                                                                                     XPtype.PRIMARY,
-                                                                                    IntegerArgumentType.getInteger(context, "xp")
+                                                                                    IntegerArgument.getInteger(context, "xp")
                                                                                 )
                                                                         )
                                                         )
@@ -69,12 +69,12 @@ public class MobXPCommands {
                                         .then(
                                                 Commands.literal("secondaryXP")
                                                         .then(
-                                                                Commands.argument("xp", IntegerArgumentType.integer())
+                                                                Commands.argument("xp", IntegerArgument.integer())
                                                                         .executes(context->updateXP(
                                                                                     context.getSource(),
                                                                                     ResourceArgument.getSummonableEntityType(context, "entity"),
                                                                                     XPtype.SECONDARY,
-                                                                                    IntegerArgumentType.getInteger(context, "xp")
+                                                                                    IntegerArgument.getInteger(context, "xp")
                                                                                 )
                                                                         )
                                                         )
@@ -82,12 +82,12 @@ public class MobXPCommands {
                                         .then(
                                                 Commands.literal("babyXP")
                                                         .then(
-                                                                Commands.argument("xp", IntegerArgumentType.integer())
+                                                                Commands.argument("xp", IntegerArgument.integer())
                                                                         .executes(context->updateXP(
                                                                                         context.getSource(),
                                                                                         ResourceArgument.getSummonableEntityType(context, "entity"),
                                                                                         XPtype.BABY,
-                                                                                        IntegerArgumentType.getInteger(context, "xp")
+                                                                                        IntegerArgument.getInteger(context, "xp")
                                                                                 )
                                                                         )
                                                         )
@@ -95,12 +95,12 @@ public class MobXPCommands {
                                         .then(
                                                 Commands.literal("enabled")
                                                         .then(
-                                                                Commands.argument("value", BoolArgumentType.bool())
+                                                                Commands.argument("value", BooleanArgument.bool())
                                                                         .executes(context->updateFlag(
                                                                                         context.getSource(),
                                                                                         ResourceArgument.getSummonableEntityType(context, "entity"),
                                                                                         XPFlag.ENABLED,
-                                                                                        BoolArgumentType.getBool(context, "value")
+                                                                                        BooleanArgument.getBool(context, "value")
                                                                                 )
                                                                         )
                                                         )
@@ -108,12 +108,12 @@ public class MobXPCommands {
                                         .then(
                                                 Commands.literal("random")
                                                         .then(
-                                                                Commands.argument("value", BoolArgumentType.bool())
+                                                                Commands.argument("value", BooleanArgument.bool())
                                                                         .executes(context->updateFlag(
                                                                                         context.getSource(),
                                                                                         ResourceArgument.getSummonableEntityType(context, "entity"),
                                                                                         XPFlag.RANDOM,
-                                                                                        BoolArgumentType.getBool(context, "value")
+                                                                                        BooleanArgument.getBool(context, "value")
                                                                                 )
                                                                         )
                                                         )
@@ -121,12 +121,12 @@ public class MobXPCommands {
                                         .then(
                                                 Commands.literal("usePrimaryXPForBaby")
                                                         .then(
-                                                                Commands.argument("value", BoolArgumentType.bool())
+                                                                Commands.argument("value", BooleanArgument.bool())
                                                                         .executes(context->updateFlag(
                                                                                         context.getSource(),
                                                                                         ResourceArgument.getSummonableEntityType(context, "entity"),
                                                                                         XPFlag.BABYUSESPRIMARY,
-                                                                                        BoolArgumentType.getBool(context, "value")
+                                                                                        BooleanArgument.getBool(context, "value")
                                                                                 )
                                                                         )
                                                         )

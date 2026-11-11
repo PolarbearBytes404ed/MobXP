@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.social.EntityPortraitWidget;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
@@ -56,29 +57,24 @@ public class MobWidget implements Renderable {
      * @param scale Used to scale the entity model
      * @param offset Used to position the entity model vertically
      * @param context drawing context
-     * @param mouseX x position of mouse
-     * @param mouseY y position of mouse
      */
-    public void render(double scale, double offset, GuiGraphicsExtractor context, int mouseX, int mouseY) {
+    public void render(double scale, double offset, GuiGraphicsExtractor context) {
         int shift = (int) (offset * height);
         int size = (int)(height * 0.45f * scale);
 
-        //InventoryScreen.drawEntity() is the actual work horse for displaying the entity model, let it do the work for us
-        InventoryScreen.extractEntityInInventoryFollowsMouse(context,x, y-shift, x+width, y+height, size, 1F, mouseX, mouseY, entity );
+        //Does the actual work for displaying the entity model, let it do the work for us
+        EntityPortraitWidget.extractEntityInInventoryFollowsMouse(context,x, y-shift, x+width, y+height, size, 1F,  entity );
     }
 
     /**
-     * Overloaded to redirect to the {@link #render(double, double, GuiGraphicsExtractor, int, int)} method that can take scale and offset arguments, default use 1 nad 1 respectively (no scaling no offsetting)
+     * Overloaded to redirect to the {@link #render(double, double, GuiGraphicsExtractor)} method that can take scale and offset arguments, default use 1 nad 1 respectively (no scaling no offsetting)
      * @param context drawing context
-     * @param mouseX x position of mouse
-     * @param mouseY y position of mouse
-     * @param deltaTicks ticks since last render
      */
     @Override
-    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context) {
         double offset = MODEL_OFFSET_FIX.getOrDefault(entity.getType(), 1F);
         double scale = MODEL_SCALE_FIX.getOrDefault(entity.getType(), 1F);
-        render(scale, offset, context, mouseX, mouseY);
+        render(scale, offset,context);
     }
 
     /**

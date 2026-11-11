@@ -9,6 +9,10 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
@@ -16,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 /**
  * "Panel" widget for displaying the editor controls for mob xp details
  */
-public class MobXPDetailsPanel implements Renderable {
+public class MobXPDetailsPanel implements Renderable, GuiEventListener, NarratableEntry {
     private boolean visible = true;
     private String title;
     private String id;
@@ -127,7 +131,7 @@ public class MobXPDetailsPanel implements Renderable {
                 .size(buttonWidth, FIELD_HEIGHT)
                 .build();
 
-        parent.addDrawable(this);
+        parent.add(this);
         parent.add(xpLabel);
         parent.add(primaryXPField);
         parent.add(secondaryXPField);
@@ -202,7 +206,7 @@ public class MobXPDetailsPanel implements Renderable {
     }
 
     @Override
-    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context) {
         if(!visible) return;
         context.fill(x,y, x+width, y+height, 0x99000000);
         context.fill(x,y, x+width, y+24, 0xFF0a0a0a);
@@ -222,5 +226,32 @@ public class MobXPDetailsPanel implements Renderable {
      */
     private void saveAndClose(){
         this.parent.saveAndClose(getDetails());
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+
+    }
+
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
+
+    @Override
+    public @NonNull NarrationPriority narrationPriority() {
+        if (isFocused()) {
+            return NarratableEntry.NarrationPriority.FOCUSED;
+        }
+
+        return NarratableEntry.NarrationPriority.NONE;
+    }
+
+    @Override
+    public void updateNarration(NarrationElementOutput output) {
+        output.add(
+                NarratedElementType.TITLE,
+                Component.literal("Mob XP Details")
+        );
     }
 }

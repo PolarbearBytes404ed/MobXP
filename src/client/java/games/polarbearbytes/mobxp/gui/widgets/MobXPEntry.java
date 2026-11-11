@@ -63,10 +63,10 @@ public class MobXPEntry extends Entry<MobXPEntry> {
     }
 
     @Override
-    public void extractContent(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+    public void extractContent(@NonNull GuiGraphicsExtractor context, boolean hovered) {
         Font font = Minecraft.getInstance().font;
 
-        this.mobWidget.extractRenderState(context,mouseX,mouseY,deltaTicks);
+        this.mobWidget.extractRenderState(context);
 
         int labelHeight = font.lineHeight + 2;
 

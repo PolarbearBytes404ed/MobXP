@@ -23,64 +23,64 @@ public record EditorContext(EditBox primaryXP, StringWidget primaryLabel, EditBo
      * Hide all the controls, labels
      */
     public void hideAll() {
-        xpLabel.visible = false;
-        primaryXP.visible = false;
-        primaryLabel.visible = false;
-        secondaryXP.visible = false;
-        secondaryLabel.visible = false;
-        enabledCheckbox.visible = false;
-        randomCheckbox.visible = false;
-        babyLabel.visible = false;
-        babyXP.visible = false;
-        mediumCubeLabel.visible = false;
-        mediumCubeXP.visible = false;
-        smallCubeLabel.visible = false;
-        smallCubeXP.visible = false;
-        usePrimaryXPForBaby.visible = false;
-        usePrimaryXPForAllCubes.visible = false;
-        applyButton.visible = false;
-        saveCloseButton.visible = false;
+        xpLabel.setVisible(false);
+        primaryXP.setVisible(false);
+        primaryLabel.setVisible(false);
+        secondaryXP.setVisible(false);
+        secondaryLabel.setVisible(false);
+        enabledCheckbox.setVisible(false);
+        randomCheckbox.setVisible(false);
+        babyLabel.setVisible(false);
+        babyXP.setVisible(false);
+        mediumCubeLabel.setVisible(false);
+        mediumCubeXP.setVisible(false);
+        smallCubeLabel.setVisible(false);
+        smallCubeXP.setVisible(false);
+        usePrimaryXPForBaby.setVisible(false);
+        usePrimaryXPForAllCubes.setVisible(false);
+        applyButton.setVisible(false);
+        saveCloseButton.setVisible(false);
     }
 
     /**
      * Show the controls, labels for normal mob details
      */
     public void showNormal() {
-        xpLabel.visible = true;
-        primaryXP.visible = true;
-        enabledCheckbox.visible = true;
-        randomCheckbox.visible = true;
-        applyButton.visible = true;
-        saveCloseButton.visible = true;
+        xpLabel.setVisible(true);
+        primaryXP.setVisible(true);
+        enabledCheckbox.setVisible(true);
+        randomCheckbox.setVisible(true);
+        applyButton.setVisible(true);
+        saveCloseButton.setVisible(true);
     }
 
     /**
      * Show the secondary controls, labels for mobs with secondary xp (like ender dragon)
      */
     public void showSecondary(boolean show) {
-        secondaryXP.visible = show;
-        primaryLabel.visible = show;
-        secondaryLabel.visible = show;
+        secondaryXP.setVisible(show);
+        primaryLabel.setVisible(show);
+        secondaryLabel.setVisible(show);
     }
 
     /**
      * Show the baby detail controls, labels for mobs with baby xp (like baby zombie, animals etc.)
      */
     public void showBaby(boolean show) {
-        babyLabel.visible = show;
-        babyXP.visible = show;
-        usePrimaryXPForBaby.visible = show;
+        babyLabel.setVisible(show);
+        babyXP.setVisible(show);
+        usePrimaryXPForBaby.setVisible(show);
     }
 
     /**
      * Show the cube detail controls, controls for cube type mobs xp (like slimes, magma, sulfur, etc.)
      */
     public void showCubes(boolean show) {
-        mediumCubeLabel.visible = show;
-        mediumCubeXP.visible = show;
-        smallCubeLabel.visible = show;
-        smallCubeXP.visible = show;
-        usePrimaryXPForAllCubes.visible = show;
+        mediumCubeLabel.setVisible(show);
+        mediumCubeXP.setVisible(show);
+        smallCubeLabel.setVisible(show);
+        smallCubeXP.setVisible(show);
+        usePrimaryXPForAllCubes.setVisible(show);
     }
 
     public void setLabels(String primaryLabel, String secondaryLabel) {

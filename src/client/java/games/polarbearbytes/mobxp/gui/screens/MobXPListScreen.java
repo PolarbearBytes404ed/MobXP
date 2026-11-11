@@ -103,18 +103,13 @@ public class MobXPListScreen extends Screen {
     }
 
     @Override
-    public void extractRenderState(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
-        super.extractRenderState(context, mouseX, mouseY, deltaTicks);
+    public void extractRenderState(@NonNull GuiGraphicsExtractor context) {
+        super.extractRenderState(context);
     }
 
     public <T extends Renderable & GuiEventListener & NarratableEntry> void add(T drawableElement){
         this.addRenderableWidget(drawableElement);
     }
-
-    public <T extends Renderable> T addDrawable(T drawable){
-        return super.addRenderableOnly(drawable);
-    }
-
 
     /**
      * Saves the changes of the currently selected mob to the respective places, and sends packet to server for updating on server side
